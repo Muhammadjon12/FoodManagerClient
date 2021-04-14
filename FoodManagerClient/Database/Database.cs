@@ -39,12 +39,12 @@ namespace FoodManagerClient.Database
             }
         }
     
-        public List<Food> GetAllFood(string name)
+        public List<Food> GetTypesFoodById(int id)
         {
             ListFood.Clear();
             try
             {
-                using (MySqlCommand cmd = new MySqlCommand("SELECT id,name,price,typesFood,date,descr,image FROM food_table WHERE typesFood = '"+name+"';", conn))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT id,name,price,typesFood,date,descr,image FROM food_table WHERE food_table.typesFood = (SELECT NAME FROM types_food WHERE id = '"+id+"');", conn))
                 {
                     conn.Open();
                     reader = cmd.ExecuteReader();
@@ -77,7 +77,46 @@ namespace FoodManagerClient.Database
             return null;
 
         }
-       
+
+        public List<Food> GetAllFoodByID(int id)
+        {
+            ListFood.Clear();
+            try
+            {
+                using (MySqlCommand cmd = new MySqlCommand("SELECT id,name,price,typesFood,date,descr,image FROM food_table WHERE id = '" + id + "';", conn))
+                {
+                    conn.Open();
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Food food = new Food();
+                        food.Id = reader.GetUInt16(0);
+                        food.Name = reader.GetString(1);
+                        food.Price = reader.GetDouble(2);
+                        food.Typefood = reader.GetString(3);
+                        food.DateTime = reader.GetDateTime(4);
+                        food.Descr = reader.GetString(5);
+
+                        food.Image = (byte[])reader["image"];
+
+                        ListFood.Add(food);
+                    }
+                    conn.Close();
+                    return ListFood;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (conn != null) conn.Close();
+            }
+            return null;
+
+        }
+
         public List<string> GetFoodTypes()
         {
             try

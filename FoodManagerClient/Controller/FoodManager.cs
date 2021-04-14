@@ -17,11 +17,15 @@ namespace FoodManagerClient.Controller
             List<string> list = database.GetFoodTypes();
             return list;
         }
-        public List<Food> ReaderAllFood(string name)
+        public List<Food> ReaderTypesFoodById(int Id)
         {
-            List<Food> getListFood = database.GetAllFood(name);
+            List<Food> getListFood = database.GetTypesFoodById(Id);
             return getListFood;
         }
-     
+        public List<Food> ReaderAllFoodById(int Id)
+        {
+            List<Food> getListFood = database.GetAllFoodByID(Id);
+            return getListFood;
+        }
     }
 }

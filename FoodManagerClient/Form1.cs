@@ -25,7 +25,6 @@ namespace FoodManagerClient
             {
                 listView1.Items.Add(item);
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,7 +34,6 @@ namespace FoodManagerClient
             {
                 if (Item != null)
                 {
-
                     if (Item.Checked)
                     {
                         listView3.Items.Remove(Item);
@@ -48,12 +46,15 @@ namespace FoodManagerClient
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (int i in listView1.SelectedIndices)
+            int indexList;
+            if (listView1.SelectedItems.Count > 0)
             {
-                ShowList(listView1.Items[i].Text);
+                indexList = listView1.Items.IndexOf(listView1.SelectedItems[0]);
+                indexList++;
+                ShowList(indexList);
             }
         }
-        public void ShowList(string name)
+        public void ShowList(int index)
         {
             listView2.Clear();
 
@@ -61,7 +62,7 @@ namespace FoodManagerClient
             this.listView2.LargeImageList = this.imageList1;
             listView2.LargeImageList.ImageSize = new Size(100, 100);
 
-            foreach (var item in foodManager.ReaderAllFood(name))
+            foreach (var item in foodManager.ReaderTypesFoodById(index))
             {
                 MemoryStream memStream = new MemoryStream(item.Image);
                 this.imageList1.Images.Add(Image.FromStream(memStream));
@@ -71,8 +72,7 @@ namespace FoodManagerClient
                 string[] arr = new string[4];
 
                 arr[0] = item.Name + "\n" + item.Price.ToString() + ".сом";
-                arr[1] = item.Name;
-                arr[2] = item.Price.ToString();
+                arr[1] = item.Id.ToString();
 
                 itm = new ListViewItem(arr);
                 itm.ImageIndex = imageList1.Images.Count - 1;
@@ -85,8 +85,7 @@ namespace FoodManagerClient
         {
             listView3.Columns.Clear();
 
-            string productName = null;
-            Double price;
+            int id;
 
             listView3.View = View.Details;
             listView3.FullRowSelect = true;
@@ -95,17 +94,19 @@ namespace FoodManagerClient
             listView3.Columns.Add("Name", 120);
             listView3.Columns.Add("Price", 50);
 
-            productName = listView2.SelectedItems[0].SubItems[1].Text;
-            price = Double.Parse(listView2.SelectedItems[0].SubItems[2].Text);
+            id = int.Parse(listView2.SelectedItems[0].SubItems[1].Text);
+          
+            foreach (var item in foodManager.ReaderAllFoodById(id))
+            {
+                string[] mas = new string[2];
+                mas[0] = item.Name;
+                mas[1] = item.Price.ToString();
 
-            string[] mas = new string[2];
-            mas[0] = productName;
-            mas[1] = price.ToString();
+                ListViewItem listItem = new ListViewItem(mas);
 
-            ListViewItem listItem = new ListViewItem(mas);
-
-            listView3.Items.Add(listItem);
-
+                listView3.Items.Add(listItem);
+                //listView3.Items.Add(item.Name+"  "+item.Price.ToString());
+            }
             TotalListSum();
         }
         public void TotalListSum()
@@ -114,7 +115,6 @@ namespace FoodManagerClient
             foreach (ListViewItem item in listView3.Items)
             {
                 sum += double.Parse(item.SubItems[1].Text);
-
             }
             label3.Text = listView3.Items.Count.ToString();
             label2.Text = sum.ToString();
