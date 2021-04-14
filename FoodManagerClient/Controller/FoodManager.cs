@@ -13,7 +13,6 @@ namespace FoodManagerClient.Controller
         private Database.Database database = new Database.Database();
 
         public List<string> ReaderFoodTypes()
-
         {
             List<string> list = database.GetFoodTypes();
             return list;
@@ -23,5 +22,6 @@ namespace FoodManagerClient.Controller
             List<Food> getListFood = database.GetAllFood(name);
             return getListFood;
         }
+     
     }
 }

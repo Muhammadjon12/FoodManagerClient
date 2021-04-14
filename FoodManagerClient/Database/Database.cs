@@ -77,6 +77,7 @@ namespace FoodManagerClient.Database
             return null;
 
         }
+       
         public List<string> GetFoodTypes()
         {
             try
