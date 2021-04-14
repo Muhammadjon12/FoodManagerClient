@@ -38,7 +38,7 @@ namespace FoodManagerClient.Database
                 MessageBox.Show("Дар пайвастшави хатоги мавҷуд" + ex.Message);
             }
         }
-    
+         //TODO: i dont get what you mean here.
         public List<Food> GetTypesFoodById(int id)
         {
             ListFood.Clear();
@@ -77,7 +77,7 @@ namespace FoodManagerClient.Database
             return null;
 
         }
-
+         //TODO: get all food by id ??? maybe you mean get all food by type?
         public List<Food> GetAllFoodByID(int id)
         {
             ListFood.Clear();
