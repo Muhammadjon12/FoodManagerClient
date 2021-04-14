@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+ //TODO: please rename methods and events to more meaningful name.
 namespace FoodManagerClient
 {
     public partial class Form1 : Form
