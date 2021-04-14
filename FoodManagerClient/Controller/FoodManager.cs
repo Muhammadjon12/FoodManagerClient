@@ -11,17 +11,19 @@ namespace FoodManagerClient.Controller
     class FoodManager
     {
         private Database.Database database = new Database.Database();
-
+        //TODO: please rename method to more meaningful name.
         public List<string> ReaderFoodTypes()
         {
             List<string> list = database.GetFoodTypes();
             return list;
         }
+         //TODO: please rename method to more meaningful name.
         public List<Food> ReaderTypesFoodById(int Id)
         {
             List<Food> getListFood = database.GetTypesFoodById(Id);
             return getListFood;
         }
+         //TODO: please rename method to more meaningful name.
         public List<Food> ReaderAllFoodById(int Id)
         {
             List<Food> getListFood = database.GetAllFoodByID(Id);
