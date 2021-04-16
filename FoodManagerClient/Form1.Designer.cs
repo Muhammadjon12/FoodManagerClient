@@ -56,7 +56,7 @@ namespace FoodManagerClient
             this.button1.TabIndex = 18;
             this.button1.Text = "Бекор кардан";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.BtnLossList_Click);
             // 
             // label3
             // 
@@ -121,7 +121,7 @@ namespace FoodManagerClient
             this.listView2.Size = new System.Drawing.Size(555, 375);
             this.listView2.TabIndex = 11;
             this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.Click += new System.EventHandler(this.listView2_Click);
+            this.listView2.Click += new System.EventHandler(this.showFoodslistView_Click);
             // 
             // listView1
             // 
@@ -134,7 +134,7 @@ namespace FoodManagerClient
             this.listView1.TabIndex = 10;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.ShowlistFoodsType_SelectedIndexChanged);
             // 
             // Form1
             // 

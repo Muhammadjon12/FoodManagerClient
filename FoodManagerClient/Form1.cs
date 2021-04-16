@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
- //TODO: please rename methods and events to more meaningful name.
 namespace FoodManagerClient
 {
     public partial class Form1 : Form
@@ -22,13 +21,13 @@ namespace FoodManagerClient
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (var item in foodManager.ReaderFoodTypes())
+              foreach (var item in foodManager.getFoodsType())
             {
                 listView1.Items.Add(item);
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnLossList_Click(object sender, EventArgs e)
         {
             listView3.CheckBoxes = true;
             foreach (ListViewItem Item in listView3.Items)
@@ -45,7 +44,7 @@ namespace FoodManagerClient
             }
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ShowlistFoodsType_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indexList;
             if (listView1.SelectedItems.Count > 0)
@@ -63,7 +62,7 @@ namespace FoodManagerClient
             this.listView2.LargeImageList = this.imageList1;
             listView2.LargeImageList.ImageSize = new Size(100, 100);
 
-            foreach (var item in foodManager.ReaderTypesFoodById(index))
+            foreach (var item in foodManager.getFoodsByType(index))
             {
                 MemoryStream memStream = new MemoryStream(item.Image);
                 this.imageList1.Images.Add(Image.FromStream(memStream));
@@ -82,7 +81,7 @@ namespace FoodManagerClient
             }
         }
 
-        private void listView2_Click(object sender, EventArgs e)
+        private void showFoodslistView_Click(object sender, EventArgs e)
         {
             listView3.Columns.Clear();
 
@@ -96,18 +95,19 @@ namespace FoodManagerClient
             listView3.Columns.Add("Price", 50);
 
             id = int.Parse(listView2.SelectedItems[0].SubItems[1].Text);
-          
-            foreach (var item in foodManager.ReaderAllFoodById(id))
-            {
+
+          Model.Food hh=  foodManager.getFoodById(id);
+
+           
                 string[] mas = new string[2];
-                mas[0] = item.Name;
-                mas[1] = item.Price.ToString();
+
+            mas[0] = hh.Name;
+                mas[1] = hh.Price.ToString();
 
                 ListViewItem listItem = new ListViewItem(mas);
 
                 listView3.Items.Add(listItem);
-                //listView3.Items.Add(item.Name+"  "+item.Price.ToString());
-            }
+         
             TotalListSum();
         }
         public void TotalListSum()

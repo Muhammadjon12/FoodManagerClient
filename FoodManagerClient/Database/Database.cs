@@ -38,8 +38,7 @@ namespace FoodManagerClient.Database
                 MessageBox.Show("Дар пайвастшави хатоги мавҷуд" + ex.Message);
             }
         }
-         //TODO: i dont get what you mean here.
-        public List<Food> GetTypesFoodById(int id)
+        public List<Food> GetFoodsByType(int id)
         {
             ListFood.Clear();
             try
@@ -77,10 +76,9 @@ namespace FoodManagerClient.Database
             return null;
 
         }
-         //TODO: get all food by id ??? maybe you mean get all food by type?
-        public List<Food> GetAllFoodByID(int id)
+        public Food GetFoodByID(int id)
         {
-            ListFood.Clear();
+            Food food = new Food();
             try
             {
                 using (MySqlCommand cmd = new MySqlCommand("SELECT id,name,price,typesFood,date,descr,image FROM food_table WHERE id = '" + id + "';", conn))
@@ -89,7 +87,7 @@ namespace FoodManagerClient.Database
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Food food = new Food();
+                       
                         food.Id = reader.GetUInt16(0);
                         food.Name = reader.GetString(1);
                         food.Price = reader.GetDouble(2);
@@ -99,10 +97,10 @@ namespace FoodManagerClient.Database
 
                         food.Image = (byte[])reader["image"];
 
-                        ListFood.Add(food);
                     }
                     conn.Close();
-                    return ListFood;
+
+                    return food;
                 }
             }
             catch (Exception ex)
@@ -117,7 +115,7 @@ namespace FoodManagerClient.Database
 
         }
 
-        public List<string> GetFoodTypes()
+        public List<string> getFoodsType()
         {
             try
             {
